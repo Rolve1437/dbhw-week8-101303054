@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Member = require('../models/Member');
 var Article = require('../models/Article');
+var Member = require('../models/Member');
 var async = require('async');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   Article.getAll(function(err, articleList) {
@@ -10,19 +11,19 @@ router.get('/', function(req, res, next) {
       next();
     }
     else {
+      //async.each(array, iterator, callback);
       async.each(articleList, function(article, cb) {
-        Member.get(article.memberId, function(err, member) {
+        Member.get(article.memberId, function(err, member) { //透過article.memberId找到member
           if(err) {
             cb(err);
           }
           else {
-            article.member = member;
+            article.member = member; //將member存進article中做為Attribute
             cb(null);
           }
         });
-      },function(err){
+      }, function(err){ //callback
         if(err) {
-          res.status = err.code;
           next();
         } else {
           res.render('index',

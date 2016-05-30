@@ -1,43 +1,48 @@
-<% include ./header %>
-<!-- Page Header -->
-<!-- Set your background image for this header on the line below. -->
-<header class="intro-header" style="background-image: url('/images/home-bg.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                  <% if(member) {%>
-                    <h1>歡迎回來,<%= member.name %></h1>
-                  <% } else {%>
-                    <h1>Clean Blog</h1>
-                    <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
-                  <% } %>
-                    <hr>
+    <% include ./header %>
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                      <% if(member) {%>
+                        <h1><%= member.name %>'s Clean Blog</h1>
+                        <hr class="small">
+                        <span class="subheading">歡迎回來！</span>
+                      <% } else {%>
+                        <h1>Clean Blog</h1>
+                        <hr class="small">
+                        <span class="subheading">Theme by Start Bootstrap</span>
+                        <span class="subheading">Edited by Rolve</span>
+                      <% } %>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
+
     <!-- Main Content -->
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-              <% articleList.forEach(function(article) { %>
+              <% articleList.forEach(function(article){ %>
                 <div class="post-preview">
-                  <a href="/article/<%= article.id %>">
-                            <h2 class="post-title">
-                              <%= article.title %>
-                            </h2>
-                            <h3 class="post-subtitle">
-                              <%= article.content %>
-                            </h3>
-                        </a>
-                        <p class="post-meta">Posted by <a href="#"><%= article.member.name %></a> on
-                          <%= article.createdAt %>
-                        </p>
-                    </div>
-                    <hr>
-              <%  }); %>
+                    <a href="article/<%= article.id %>">
+                        <h2 class="post-title">
+                            <%= article.title %>
+                        </h2>
+                        <h3 class="post-subtitle">
+                            <%= article.content %>
+                        </h3>
+                    </a>
+                    <p class="post-meta">
+                      Posted by <a href="#"><%= article.member.name %></a>
+                      on <%= article.createdAt %>
+                    </p>
+                </div>
+                <hr>
+              <% }); %>
                 <!-- Pager -->
                 <ul class="pager">
                     <li class="next">
@@ -47,4 +52,4 @@
             </div>
         </div>
     </div>
-<% include ./footer %>
+    <% include ./footer %>

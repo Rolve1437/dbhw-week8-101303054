@@ -47,29 +47,27 @@ Article.get = function(articleId, cb) {
         cb(null, articleList[0]);
       }
       else {
-        cb(null, new GeneralErrors.NotFound());
+        cb(new GeneralErrors.NotFound());
       }
     })
     .catch(function(err) {
-      console.log(err);
       cb(new GeneralErrors.Database());
     });
 }
 
 Article.prototype.save = function (cb) {
-  if(this.id) {
+  if (this.id) {
     db('article')
+      .where({id : this.id})
       .update({
         title : this.title,
         content : this.content
       })
-      .where({id : this.id})
       .then(function() {
         cb(null);
       })
       .catch(function(err) {
-        console.log(err);
-        cb(null, new GeneralErrors.Database());
+        cb(new GeneralErrors.Database());
       })
   }
   else {
@@ -84,8 +82,7 @@ Article.prototype.save = function (cb) {
         cb(null, this);
       }.bind(this))
       .catch(function(err) {
-        console.log(err);
-        cb(null, new GeneralErrors.Database());
+        cb(new GeneralErrors.Database());
       });
   }
 };

@@ -1,44 +1,18 @@
 var express = require('express');
 var router = express.Router();
-var Member = require('../models/Member');
 var Article = require('../models/Article');
-var async = require('async');
+var Member = require('../models/Member');
 
-router.get('/new', function(req, res) {
-  if(!req.session.member) {
+router.get('/new', function(req, res, next) {
+  if(!req.session.member){
     res.redirect('/');
   }
-
-  res.render('postArticle', {
-    member : req.session.member || null
-  });
+  else{
+    res.render('post', {
+      member : req.session.member
+    });
+  }
 });
-
-//members test
-router.get('/:articleId', function(req, res, next) {
-  Article.get(req.params.articleId, function(err, article) {
-    if(err) {
-      console.log(err);
-      next();
-    } else {
-      Member.get(article.memberId, function(err, member) {
-        if(err) {
-          console.log(err);
-        } else {
-          article.member = member;
-          res.render('articleDetail', {
-            article : article,
-            member : req.session.member || null
-          });
-        }
-      })
-
-    }
-  });
-});
-
-
-
 
 router.post('/', function(req, res) {
   if(!req.session.member) {
@@ -53,14 +27,34 @@ router.post('/', function(req, res) {
 
   newArticle.save(function(err) {
     if(err) {
-      res.status = err.code;
-      res.json(err);
-    } else {
-      
+      next();
+    }
+    else {
       res.redirect("/");
     }
   });
 });
 
+router.get('/:articleId', function(req, res, next) {
+  Article.get(req.params.articleId, function(err, article) {
+    if(err) {
+      next();
+    }
+    else {
+      Member.get(article.memberId, function(err, member) {
+        if(err) {
+          next();
+        }
+        else {
+          article.member = member;
+          res.render('content', {
+            article : article,
+            member : req.session.member || null
+          });
+        }
+      })
+    }
+  });
+});
 
 module.exports = router;

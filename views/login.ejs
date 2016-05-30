@@ -1,40 +1,40 @@
 <% include ./header %>
+<!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
-<header class="intro-header" style="background-image: url('./images/contact-bg.jpg')">
+<header class="intro-header" style="background-image: url('/img/contact-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="page-heading">
-                    <h1>Login</h1>
+                    <h1>會員登入</h1>
                     <hr class="small">
-                    <span class="subheading">Welcome back!</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
+<!-- Main Content 透過name="name"、name="account"來傳資料-->
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <h2>Login</h2>
+            <p>請輸入帳號密碼：</p>
             <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
             <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
             <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
-            <form name="sentMessage" action="/register" method="POST" id="contactForm" novalidate>
+            <form name="sentMessage" id="contactForm" action="/login" method="POST" novalidate>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Account</label>
-                        <input type="text" class="form-control" placeholder="account" id="account" name="account"  required data-validation-required-message="Please enter your account.">
-                        <p class="help-block text-danger"></p>
+                        <input type="text" class="form-control" placeholder="account" id="account" name="account" required data-validation-required-message="Please enter your account.">
+                        <p style="color:red" class="help-block text-danger"></p>
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Password</label>
-                        <input type="password" class="form-control" placeholder="Password" id="password" name="password" required data-validation-required-message="Please enter your password.">
-                        <p class="help-block text-danger"></p>
+                        <input type="password" class="form-control" placeholder="password" id="password" name="password" required data-validation-required-message="Please enter your password number.">
+                        <p style="color:red" class="help-block text-danger"></p>
                     </div>
                 </div>
                 <br>
@@ -48,6 +48,4 @@
         </div>
     </div>
 </div>
-
-<hr>
 <% include ./footer %>

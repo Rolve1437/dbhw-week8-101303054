@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
-                        <h1>註冊會員</h1>
+                        <h1>發表文章</h1>
                         <hr class="small">
                     </div>
                 </div>
@@ -14,33 +14,25 @@
         </div>
     </header>
 
-    <!-- Main Content 透過name="name"、name="account"來傳資料-->
+    <!-- Main Content -->
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>請輸入會員資料：</p>
                 <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
                 <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
                 <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
-                <form name="sentMessage" id="contactForm" action="/register" method="POST" novalidate>
+                <form name="sentMessage" id="contactForm" action="/article" method="POST" novalidate>
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label>Name</label>
-                            <input type="text" class="form-control" placeholder="name" id="name" name="name" required data-validation-required-message="Please enter your name.">
+                            <label>Title</label>
+                            <input type="text" class="form-control" placeholder="title" id="title" name="title" required data-validation-required-message="Please enter your title.">
                             <p style="color:red" class="help-block text-danger"></p>
                         </div>
                     </div>
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label>Account</label>
-                            <input type="text" class="form-control" placeholder="account" id="account" name="account" required data-validation-required-message="Please enter your account.">
-                            <p style="color:red" class="help-block text-danger"></p>
-                        </div>
-                    </div>
-                    <div class="row control-group">
-                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label>Password</label>
-                            <input type="password" class="form-control" placeholder="password" id="password" name="password" required data-validation-required-message="Please enter your password number.">
+                            <label>Content</label>
+                            <textarea rows="5" class="form-control" placeholder="content" id="content" name="content" required data-validation-required-message="Please enter your content."></textarea>
                             <p style="color:red" class="help-block text-danger"></p>
                         </div>
                     </div>

@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var register = require('./routes/register');
 var article = require('./routes/article');
 var login = require('./routes/login');
@@ -18,7 +17,11 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(session({secret : 'DBMSExpressSESSION'}));
+app.use(session({
+  secret : 'DBMSexpress',
+  resave: true,
+  saveUninitialized: true
+}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -29,7 +32,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 app.use('/article', article);
 app.use('/register', register);
 app.use('/login', login);

@@ -25,16 +25,35 @@ Member.get = function(memberId, cb) {
       }
     })
     .catch(function(err) {
-      cb(err);
+      cb(new GeneralErrors.Database());
+    })
+}
+
+Member.getByAccount = function(memberAccount, cb) {
+  db.select()
+    .from('member')
+    .where({account : memberAccount})
+    .map(function(row) {
+      //將select出來的資料轉換成Member物件
+      return new Member(row);
+    })
+    .then(function(memberList) {
+      if(memberList.length) {
+        cb(null, memberList[0]);
+      }
+      else {
+        cb(new GeneralErrors.NotFound());
+      }
+    })
+    .catch(function(err) {
+      cb(new GeneralErrors.Database());
     })
 }
 
 Member.prototype.save = function (cb) {
   if (this.id) {
     db("member")
-      .where({
-        id : this.id
-      })
+      .where({id : this.id})
       .update({
         name : this.name,
         account : this.account,
@@ -44,7 +63,6 @@ Member.prototype.save = function (cb) {
         cb(null, this);
       }.bind(this))
       .catch(function(err) {
-        console.log("MEMBER UPDATED", err);
         cb(new GeneralErrors.Database());
       });
   }
@@ -55,13 +73,12 @@ Member.prototype.save = function (cb) {
         account: this.account,
         password: this.password
       })
-      .then(function(result) {
+      .then(function(result) {            //設定this.id
         var insertedId = result[0];
         this.id = insertedId;
         cb(null, this);
       }.bind(this))
       .catch(function(err) {
-        console.log("MEMBER INSERT", err);
         cb(new GeneralErrors.Database());
       });
   }

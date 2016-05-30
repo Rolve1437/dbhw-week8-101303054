@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Member = require('../models/Member');
-/* GET home page. */
+
 router.get('/', function(req, res, next) {
   res.render('login', {
     member : null
@@ -9,24 +9,24 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  var inputaccount = req.body.account;
-  var inputpassword = req.body.password;
-  newMember.getbyaccount(inputaccount.inputpassword,function(err,member) {
-    if(err || inputpassword != memeber.password) {
-      res.render('loginfail',{
-        memeber : null
+  Member.getByAccount(req.body.account,function(err, memberList) {
+    if(err) {
+      res.render('loginError', {
+        member : null
       });
-    } else {
-      req.session.member = member;
-      res.redirect('/');
+    }
+    else {
+      if(req.body.password = memberList.password){
+        req.session.member = memberList;
+        res.redirect('/');
+      }
+      else{
+        res.render('loginError', {
+          member : null
+        });
+      }
     }
   });
 });
-
-router.post('/logout', function(req, res, next) {
-  req.session.member = null;
-  res.redirect('/');
-});
-
 
 module.exports = router;

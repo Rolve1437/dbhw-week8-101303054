@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Member = require('../models/Member');
+var bcrypt = require('bcryptjs');
 
 router.get('/', function(req, res, next) {
   res.render('register', {
@@ -9,10 +10,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+  var salt = bcrypt.genSaltSync(10);
+  var hash = bcrypt.hashSync(req.body.password, salt);
   var newMember = new Member({
     name : req.body.name,
     account : req.body.account,
-    password : req.body.password
+    password : hash
   });
 
   newMember.save(function(err) {
